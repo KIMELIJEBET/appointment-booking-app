@@ -19,7 +19,7 @@ class Api::AuthController < Api::ApplicationController
   else
     render json: { error: 'Invalid email or password' }, status: :unauthorized
   end
-end
+  end
 
   def verify_token
     if current_user
