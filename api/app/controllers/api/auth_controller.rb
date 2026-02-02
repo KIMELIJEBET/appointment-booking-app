@@ -12,14 +12,14 @@ class Api::AuthController < Api::ApplicationController
   end
 
   def login
-    user = User.find_by(email: params[:user][:email])
-    if user && user.authenticate(params[:user][:password])
-      token = encode_token({ user_id: user.id })
-      render json: { user: format_user(user), token: token, message: 'Logged in successfully' }, status: :ok
-    else
-      render json: { message: 'Invalid email or password' }, status: :unauthorized
-    end
+  user = User.find_by(email: params[:email])
+  if user&.authenticate(params[:password])
+    token = encode_token({ user_id: user.id })
+    render json: { user: user, token: token }, status: :ok
+  else
+    render json: { error: 'Invalid email or password' }, status: :unauthorized
   end
+end
 
   def verify_token
     if current_user

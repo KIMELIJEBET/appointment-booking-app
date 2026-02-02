@@ -1,12 +1,17 @@
 class User < ApplicationRecord
-  #handles password hashing and authentication
+  # Handles password hashing and authentication
   has_secure_password
-  has_many :appointments, :dependent => :destroy
+  has_many :appointments, dependent: :destroy
 
+  # Validations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :role, presence: true, inclusion: { in: %w(user admin) }
 
+  # Set default role before validation on create
+  before_validation :set_default_role, on: :create
+
+  # Check if user is admin
   def is_admin?
     role == 'admin'
   end
@@ -33,5 +38,12 @@ class User < ApplicationRecord
       errors.add(:password, "doesn't match")
       false
     end
+  end
+
+  private
+
+  # Assign default role if none provided
+  def set_default_role
+    self.role ||= 'user'
   end
 end

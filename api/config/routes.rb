@@ -1,10 +1,39 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Health check
+  get "up" => "rails/health#show"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  namespace :api do
+    # Authentication
+    scope :auth do
+      post 'signup', to: 'auth#signup'
+      post 'login', to: 'auth#login'
+      post 'logout', to: 'auth#logout'
+      get  'verify', to: 'auth#verify_token'
+      post 'forgot-password', to: 'auth#forgot_password'
+      get  'verify-reset-token', to: 'auth#verify_reset_token'
+      post 'reset-password', to: 'auth#reset_password'
+    end
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+    # User appointments
+    resources :appointments, only: [:index, :create, :show, :update, :destroy]
+
+    # Users
+    resources :users, only: [:create, :index]
+
+    # Admin
+    namespace :admin do
+      get 'dashboard', to: 'admin#dashboard'
+
+      # Users
+      get 'users', to: 'admin#users'
+      get 'users/:id', to: 'admin#user_details'
+      delete 'users/:id', to: 'admin#delete_user'
+      patch 'users/:id/promote', to: 'admin#promote_user'
+      patch 'users/:id/demote', to: 'admin#demote_user'
+
+      # Appointments
+      get 'appointments', to: 'admin#all_appointments'
+      delete 'appointments/:id', to: 'admin#delete_appointment'
+    end
+  end
 end

@@ -1,25 +1,48 @@
-class Api::ApplicationController < ApplicationController
-  before_action :set_default_response_format
-  before_action :authorize_request
+# app/controllers/application_controller.rb
+require 'jwt'  
 
-  attr_reader :current_user
+class ApplicationController < ActionController::API
+  SECRET_KEY = Rails.application.secret_key_base
 
-  private
-
-  # Ensure JSON responses
-  def set_default_response_format
-    request.format = :json
+  def encode_token(payload)
+    JWT.encode(payload, SECRET_KEY, 'HS256')
   end
 
-  # JWT-based authentication
-  def authorize_request
+  def auth_header
     header = request.headers['Authorization']
-    token = header.split(' ').last if header
-    begin
-      decoded = JWT.decode(token, Rails.application.secret_key_base, true, algorithm: 'HS256')[0]
-      @current_user = User.find(decoded['user_id'])
-    rescue
-      render json: { message: 'Unauthorized' }, status: :unauthorized
-    end
+    header ||= request.headers['HTTP_AUTHORIZATION']
+    header
+  end
+
+  def decoded_token
+    return unless auth_header
+
+    token = auth_header.split(' ')[1]
+    return unless token
+
+    JWT.decode(token, SECRET_KEY, true, algorithm: 'HS256')
+  rescue JWT::DecodeError
+    nil
+  end
+
+  def current_user
+    return unless decoded_token
+
+    user_id = decoded_token[0]['user_id']
+    @current_user ||= User.find_by(id: user_id)
+  end
+
+  def logged_in?
+    current_user.present?
+  end
+
+  def authorized
+    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+  end
+
+  protected
+
+  def authorize_request
+    authorized
   end
 end
