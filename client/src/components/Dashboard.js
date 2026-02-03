@@ -36,7 +36,7 @@ export default function Dashboard() {
 
     const fetchAppointments = async (token) => {
         try {
-            const response = await fetch('http://localhost:3000/api/appointments', {
+            const response = await fetch('https://appointment-booking-app-zley.onrender.com/api/appointments', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',

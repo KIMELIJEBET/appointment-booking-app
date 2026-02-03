@@ -32,7 +32,7 @@ export default function AdminDashboard() {
 
     const fetchDashboardData = async (token) => {
         try {
-            const statsRes = await fetch('http://localhost:3000/api/admin/dashboard', {
+            const statsRes = await fetch('https://appointment-booking-app-zley.onrender.com/api/admin/dashboard', {
                 headers: { 'Authorization': `Bearer ${token}` },
             });
             if (statsRes.ok) {
