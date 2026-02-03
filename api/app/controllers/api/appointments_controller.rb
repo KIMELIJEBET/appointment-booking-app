@@ -46,9 +46,15 @@ class Api::AppointmentsController < Api::ApplicationController
     render json: { message: 'Appointment not found' }, status: :not_found
   end
 
-  def appointment_params
-    params.require(:appointment).permit(:doctorName, :date, :time, :status)
-  end
+ def appointment_params
+  params.require(:appointment).permit(
+    :doctorName,
+    :date,
+    :time,
+    :status,
+    :reason
+  )
+ end
 
   # Map doctorName → patient_name, use `date` field
   def build_appointment_data
