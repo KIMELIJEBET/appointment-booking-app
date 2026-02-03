@@ -70,14 +70,16 @@ class Api::AppointmentsController < Api::ApplicationController
   end
 
   def format_appointment(appointment)
-    {
-      id: appointment.id,
-      doctor_name: appointment.patient_name,
-      date: appointment.date.to_date.to_s,
-      time: appointment.date.strftime('%H:%M'),
-      status: appointment.status,
-      created_at: appointment.created_at,
-      updated_at: appointment.updated_at
-    }
+  {
+    id: appointment.id,
+    doctor_name: appointment.patient_name,
+    date: appointment.date.to_date.to_s,
+    time: appointment.date.strftime('%H:%M'),
+    status: appointment.status,
+    reason: appointment.reason,        # <-- add this
+    created_at: appointment.created_at,
+    updated_at: appointment.updated_at
+  }
   end
+
 end
