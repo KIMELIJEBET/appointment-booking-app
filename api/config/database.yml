@@ -6,11 +6,6 @@ default: &default
 development:
   <<: *default
   database: api_development
-  # Optional: local username/password
-  # username: api
-  # password:
-  # host: localhost
-  # port: 5432
 
 test:
   <<: *default
@@ -21,17 +16,18 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
   sslmode: require
 
+  # Optional connections used by Rails for Action Cable, caching, and background jobs
+  cable:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    sslmode: require
+
   cache:
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
     sslmode: require
 
   queue:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-    sslmode: require
-
-  cable:
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
     sslmode: require
