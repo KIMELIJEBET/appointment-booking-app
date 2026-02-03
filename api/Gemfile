@@ -13,6 +13,7 @@ gem "puma", ">= 5.0"
 
 # JSON APIs
 # gem "jbuilder" # optional, uncomment if needed
+gem "solid_queue"
 
 # Authentication
 gem "jwt"
