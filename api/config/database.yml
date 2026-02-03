@@ -2,6 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  sslmode: require
 
 development:
   <<: *default
@@ -14,20 +15,3 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  sslmode: require
-
-  # Optional connections used by Rails for Action Cable, caching, and background jobs
-  cable:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-    sslmode: require
-
-  cache:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-    sslmode: require
-
-  queue:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-    sslmode: require
