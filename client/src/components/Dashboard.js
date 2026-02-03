@@ -70,7 +70,7 @@ export default function Dashboard() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:3000/api/appointments', {
+            const response = await fetch('https://appointment-booking-app-zley.onrender.com/api/appointments', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -108,7 +108,7 @@ export default function Dashboard() {
         setError('');
 
         try {
-            const response = await fetch(`http://localhost:3000/api/appointments/${editingAppointment.id}`, {
+            const response = await fetch(`https://appointment-booking-app-zley.onrender.com/api/appointments/${editingAppointment.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -137,7 +137,7 @@ export default function Dashboard() {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/appointments/${appointmentId}`, {
+            const response = await fetch(`https://appointment-booking-app-zley.onrender.com/api/appointments/${appointmentId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
