@@ -1,57 +1,52 @@
 source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.2"
-# Use postgresql as the database for Active Record
+ruby "3.2.3"
+
+# Rails 7
+gem "rails", "~> 7.0.4", ">= 7.0.4.3"
+
+# PostgreSQL database
 gem "pg", "~> 1.1"
-# Use the Puma web server [https://github.com/puma/puma]
+
+# Puma web server
 gem "puma", ">= 5.0"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-# gem "jbuilder"
-# # Gemfile
-gem 'jwt'
 
+# JSON APIs
+# gem "jbuilder" # optional, uncomment if needed
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# Authentication
+gem "jwt"
 gem "bcrypt", "~> 3.1.7"
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Timezone data for Windows
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
-#SQLite. Versions 3.8.0 and up are supported.
- #gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-  #gem "sqlite3"
-# Reduces boot times through caching; required in config/boot.rb
+# Optional: caching, queues, websockets (Rails 7 built-ins)
+# Action Cable is built-in, no need for SolidCable
+# Rails.cache can be Redis or default memory store
+# ActiveJob handles background jobs (Sidekiq recommended)
+
+# Boot speed optimization
 gem "bootsnap", require: false
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+# Deployment & containerization
 gem "kamal", require: false
-
-# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# Active Storage image processing
 gem "image_processing", "~> 1.2"
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
- gem "rack-cors"
+# CORS handling
+gem "rack-cors"
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # Debugging
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
-  # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
+  # Security auditing
   gem "bundler-audit", require: false
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  # Ruby styling
   gem "rubocop-rails-omakase", require: false
 end
