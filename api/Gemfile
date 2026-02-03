@@ -22,7 +22,11 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
-
+#SQLite. Versions 3.8.0 and up are supported.
+ #gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+  #gem "sqlite3"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
