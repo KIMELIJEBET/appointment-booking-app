@@ -19,5 +19,19 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  # SSL is required for Render PostgreSQL
   sslmode: require
+
+  cache:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    sslmode: require
+
+  queue:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    sslmode: require
+
+  cable:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    sslmode: require
