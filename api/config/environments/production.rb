@@ -30,7 +30,8 @@ Rails.application.configure do
   end
 
   # Caching
-  config.cache_store = :solid_cache_store
+ config.cache_store = :memory_store
+
 
   # Background jobs
   config.active_job.queue_adapter = :solid_queue
